@@ -1,0 +1,157 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--color-cream);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--header-height);
+}
+
+.brand {
+  display: inline-flex;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  transition: opacity var(--transition-fast);
+}
+
+.brand:hover {
+  opacity: 0.8;
+}
+
+/* Mobile: navigation is a dropdown panel toggled by the button. */
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color var(--transition-fast);
+}
+
+.toggle:hover {
+  border-color: var(--color-espresso);
+}
+
+.toggleIcon {
+  position: relative;
+  width: 1.1rem;
+  height: 0.75rem;
+}
+
+.toggleIcon::before,
+.toggleIcon::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: currentColor;
+  transition: transform var(--transition-fast), top var(--transition-fast);
+}
+
+.toggleIcon::before {
+  top: 0;
+}
+
+.toggleIcon::after {
+  top: calc(100% - 2px);
+}
+
+.toggleIcon[data-open='true']::before {
+  top: 50%;
+  transform: rotate(45deg);
+}
+
+.toggleIcon[data-open='true']::after {
+  top: 50%;
+  transform: rotate(-45deg);
+}
+
+.nav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  display: none;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: var(--space-6) var(--gutter) var(--space-8);
+  background: var(--color-cream);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.navOpen {
+  display: flex;
+}
+
+.navList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.navLink {
+  display: inline-block;
+  padding: var(--space-1) 0;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.navLink:hover {
+  color: var(--color-brown);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+.cta {
+  align-self: flex-start;
+}
+
+/* Desktop: inline navigation, no toggle button. */
+@media (min-width: 900px) {
+  .toggle {
+    display: none;
+  }
+
+  .nav {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-8);
+    padding: 0;
+    background: transparent;
+    border: 0;
+  }
+
+  .navList {
+    flex-direction: row;
+    gap: var(--space-6);
+  }
+
+  .navLink {
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: var(--space-2) 0;
+  }
+
+  .cta {
+    align-self: auto;
+  }
+}

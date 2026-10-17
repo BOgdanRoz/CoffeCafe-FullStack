@@ -1,0 +1,47 @@
+.heading {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 40rem;
+  margin-bottom: var(--space-8);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-brown);
+}
+
+/* Thin rule before the label: a quiet ornament that marks each section. */
+.eyebrow::before {
+  content: '';
+  width: 2.25rem;
+  height: 1px;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: var(--fs-h2);
+}
+
+.description {
+  color: var(--color-muted);
+  font-size: var(--fs-lg);
+}
+
+.dark .eyebrow {
+  color: var(--color-yellow);
+}
+
+.dark .title {
+  color: var(--color-cream);
+}
+
+.dark .description {
+  color: var(--color-cream-deep);
+}

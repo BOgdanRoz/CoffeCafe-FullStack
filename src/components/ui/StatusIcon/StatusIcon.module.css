@@ -1,0 +1,34 @@
+.icon {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+}
+
+.icon svg {
+  width: 0.875rem;
+  height: 0.875rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.available {
+  background: var(--color-yellow);
+  color: var(--color-espresso);
+}
+
+.occupied {
+  background: var(--color-espresso);
+  color: var(--color-cream);
+}
+
+.unavailable {
+  background: transparent;
+  color: var(--color-muted);
+  box-shadow: inset 0 0 0 1.5px var(--color-muted);
+}

@@ -1,0 +1,73 @@
+.contact {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--space-section);
+  background: var(--color-brown-deep);
+  color: var(--color-cream);
+  scroll-margin-top: var(--header-height);
+}
+
+/* Cream vine hanging from the top-right corner, very faint on the dark background. */
+.vine {
+  top: -14%;
+  right: -8%;
+  width: min(42vw, 560px);
+  color: var(--color-cream);
+  opacity: 0.12;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.block {
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+  padding: var(--space-6);
+  background: rgb(255 247 238 / 6%);
+  border-top: 3px solid var(--color-orange);
+  border-radius: var(--radius-sm);
+}
+
+.blockTitle {
+  font-size: 1.3rem;
+  color: var(--color-cream);
+}
+
+.hours {
+  display: grid;
+}
+
+.hoursRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding-block: var(--space-2);
+  border-bottom: 1px solid var(--color-line-light);
+}
+
+.link {
+  font-weight: 700;
+  color: var(--color-yellow);
+  text-underline-offset: 4px;
+  transition: color var(--transition-fast);
+}
+
+.link:hover {
+  color: var(--color-cream);
+  text-decoration: underline;
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

@@ -1,0 +1,52 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  line-height: 1;
+}
+
+.mark {
+  width: 1.9rem;
+  height: 1.9rem;
+  flex-shrink: 0;
+}
+
+.markCore {
+  fill: var(--color-cream);
+}
+
+.text {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.sub {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+.dark {
+  color: var(--color-brown);
+}
+
+.dark .markCore {
+  fill: var(--color-cream);
+}
+
+.light {
+  color: var(--color-cream);
+}
+
+.light .markCore {
+  fill: var(--color-brown-deep);
+}

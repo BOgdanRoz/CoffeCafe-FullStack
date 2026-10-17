@@ -1,0 +1,78 @@
+.about {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--space-section);
+  scroll-margin-top: var(--header-height);
+}
+
+/* Vine hangs from the top-right corner and leaves the section on purpose. */
+.vine {
+  top: -10%;
+  right: -10%;
+  width: min(44vw, 580px);
+  opacity: 0.3;
+}
+
+.grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: var(--space-12);
+  align-items: center;
+}
+
+.media {
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  aspect-ratio: 4 / 5;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.content > header {
+  margin-bottom: 0;
+}
+
+.text {
+  display: grid;
+  gap: var(--space-4);
+  color: var(--color-muted);
+  font-size: var(--fs-lg);
+}
+
+.highlights {
+  display: grid;
+  gap: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-line);
+}
+
+.highlight {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.highlightTitle {
+  font-size: 1.2rem;
+}
+
+.highlightText {
+  color: var(--color-muted);
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+    gap: clamp(3rem, 2rem + 4vw, 6rem);
+  }
+}

@@ -1,0 +1,70 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 2.9rem;
+  padding: var(--space-3) var(--space-6);
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.primary {
+  background: var(--color-orange);
+  color: var(--color-espresso);
+}
+
+.primary:hover:not(:disabled) {
+  background: var(--color-yellow);
+}
+
+.secondary {
+  border-color: var(--color-espresso);
+  background: transparent;
+  color: var(--color-espresso);
+}
+
+.secondary:hover:not(:disabled) {
+  background: var(--color-espresso);
+  color: var(--color-cream);
+}
+
+.secondaryLight {
+  border-color: var(--color-cream);
+  background: transparent;
+  color: var(--color-cream);
+}
+
+.secondaryLight:hover:not(:disabled) {
+  background: var(--color-cream);
+  color: var(--color-brown);
+}
+
+/* Cream button for colored backgrounds (hero): espresso text, yellow on hover. */
+.inverse {
+  background: var(--color-cream);
+  color: var(--color-espresso);
+}
+
+.inverse:hover:not(:disabled) {
+  background: var(--color-yellow);
+}
+
+/* Focus ring stays visible on the dark brown sections. */
+.secondaryLight:focus-visible {
+  outline-color: var(--color-yellow);
+}

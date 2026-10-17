@@ -1,0 +1,360 @@
+.availability {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--space-section);
+  background: var(--color-cream-deep);
+  scroll-margin-top: var(--header-height);
+}
+
+/* Dot pattern in the top-right corner, faded out before it reaches the content. */
+.availability::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(45%, 32rem);
+  height: 60%;
+  background-image: radial-gradient(circle, rgb(99 39 19 / 26%) 1.3px, transparent 1.7px);
+  background-size: 14px 14px;
+  mask-image: linear-gradient(to bottom left, #000 10%, transparent 72%);
+  pointer-events: none;
+}
+
+/* Small vine in the bottom-left corner balances the dot pattern. */
+.vine {
+  left: -6%;
+  bottom: -14%;
+  width: min(36vw, 440px);
+  color: var(--color-brown);
+  opacity: 0.2;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: var(--space-6);
+}
+
+.inner > header {
+  margin-bottom: 0;
+}
+
+/* Shared control styles: date input and time buttons share the same height, border and radius. */
+.label {
+  padding: 0;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+}
+
+.control {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0 var(--space-3);
+  background: #fff;
+  border: 1.5px solid var(--color-espresso);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.control:hover {
+  background: var(--color-cream);
+}
+
+.control:focus-visible {
+  outline: 3px solid var(--color-orange);
+  outline-offset: 2px;
+}
+
+.controls {
+  display: grid;
+  gap: var(--space-6);
+  padding: clamp(1.25rem, 1rem + 1vw, 2rem);
+  background: var(--color-cream);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.field {
+  display: grid;
+  gap: var(--space-2);
+  align-content: start;
+}
+
+.fieldset {
+  display: grid;
+  gap: var(--space-3);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.muted {
+  font-size: var(--fs-sm);
+  color: var(--color-muted);
+}
+
+.errorBox {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+  padding: var(--space-4);
+  border-left: 3px solid #9a1f17;
+  background: var(--color-cream);
+  font-size: var(--fs-sm);
+}
+
+/* Time slots: a uniform grid, every button has the same size. */
+.slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
+  gap: var(--space-2);
+}
+
+.slot {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 2px;
+  width: 100%;
+  min-height: 3.25rem;
+  padding: var(--space-2) var(--space-3);
+  background: #fff;
+  border: 1.5px solid var(--color-espresso);
+  border-radius: var(--radius-sm);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.slot:hover:not(:disabled) {
+  background: var(--color-cream-deep);
+}
+
+.slot:focus-visible {
+  outline: 3px solid var(--color-orange);
+  outline-offset: 2px;
+}
+
+.slot:disabled {
+  background: transparent;
+  border-style: dashed;
+  border-color: var(--color-muted);
+  color: var(--color-muted);
+  cursor: not-allowed;
+}
+
+.slotSelected,
+.slotSelected:hover:not(:disabled) {
+  background: var(--color-espresso);
+  border-color: var(--color-espresso);
+  color: var(--color-cream);
+}
+
+.slotTime {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.slotMeta {
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+
+.errorBox button {
+  min-height: 2.5rem;
+}
+
+.tablesBlock {
+  display: grid;
+  gap: var(--space-6);
+}
+
+/* Legend: each item is an icon plus text on one baseline, no wrapping inside an item. */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-8);
+}
+
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 1.25rem;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.tables {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+/* Every card has the same four rows, so names, badges, capacity and actions line up across the grid. */
+.table {
+  display: grid;
+  grid-template-rows: auto auto auto 1fr;
+  gap: var(--space-3);
+  min-width: 0;
+  min-height: 11.5rem;
+  padding: var(--space-4);
+  background: #fff;
+  border: 2px solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.tableName {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  gap: var(--space-2);
+  min-height: 1.75rem;
+  padding: 0 var(--space-3) 0 var(--space-2);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.capacity {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--fs-sm);
+  color: var(--color-muted);
+}
+
+.seatIcon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+.action {
+  display: flex;
+  align-items: flex-end;
+  min-height: 2.75rem;
+}
+
+.pick {
+  width: 100%;
+  min-height: 2.5rem;
+  padding-inline: var(--space-3);
+  font-size: 0.8125rem;
+}
+
+.unavailableText {
+  font-size: var(--fs-sm);
+  color: var(--color-muted);
+}
+
+/* Available: white card, orange frame, yellow badge. */
+.available {
+  border-color: var(--color-orange);
+}
+
+.available .badge {
+  background: var(--color-yellow);
+  color: var(--color-espresso);
+}
+
+.tableSelected {
+  box-shadow: 0 0 0 3px var(--color-espresso);
+}
+
+/* Occupied: solid espresso badge and diagonal hatching on the card. */
+.occupied {
+  border-color: var(--color-espresso);
+  background-color: #fff;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgb(43 20 8 / 9%) 0 8px,
+    transparent 8px 16px
+  );
+}
+
+.occupied .badge {
+  background: var(--color-espresso);
+  color: var(--color-cream);
+}
+
+/* Unavailable: dashed muted frame, dashed outline badge, no fill. */
+.unavailable {
+  border-style: dashed;
+  border-color: var(--color-muted);
+  background: transparent;
+}
+
+.unavailable .tableName {
+  color: var(--color-muted);
+}
+
+.unavailable .badge {
+  color: var(--color-muted);
+  box-shadow: inset 0 0 0 1.5px var(--color-muted);
+}
+
+.summary {
+  display: grid;
+  gap: var(--space-6);
+  padding: clamp(1.5rem, 1.2rem + 1.2vw, 2.5rem);
+  background: var(--color-espresso);
+  color: var(--color-cream);
+  border-radius: var(--radius-md);
+}
+
+.summaryMain {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.summaryText {
+  font-size: var(--fs-lg);
+}
+
+.policy {
+  max-width: 44rem;
+  font-size: var(--fs-sm);
+  color: var(--color-cream-deep);
+}
+
+.cta {
+  justify-self: start;
+}
+
+@media (min-width: 720px) {
+  .controls {
+    grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .tables {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .summary {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+  }
+
+  .cta {
+    justify-self: end;
+  }
+}
+
+@media (min-width: 1000px) {
+  .tables {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
