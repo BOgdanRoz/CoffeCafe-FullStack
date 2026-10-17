@@ -2,6 +2,13 @@
 
 ## 1. Project Overview
 
+## 0. Language Requirements (Important)
+- **Communicate with the user in Ukrainian.** All questions, explanations, planning discussions, progress updates, and summaries addressed to the user must be written in Ukrainian.
+- **The website UI must be in Ukrainian.** All visitor-facing content, navigation labels, buttons, forms, validation messages, reservation states, admin dashboard labels, and user-facing errors must be Ukrainian. Do not create an English-language interface unless the user explicitly requests it.
+- Keep this `CLAUDE.md`, code identifiers, database identifiers, branch names, and commit messages in English.
+- If the user writes in Ukrainian, continue the conversation in Ukrainian.
+
+
 Build **Morrow Coffee**, a polished, responsive website and reservation-management MVP for a fictional specialty coffee shop. This is a portfolio project for **WebWay**, demonstrating visual design and practical full-stack functionality.
 
 The public website should communicate the café's atmosphere, showcase its menu and space, and make it easy to submit a table reservation request. A separate, protected admin area lets the owner manage reservation requests and table availability.
@@ -9,6 +16,14 @@ The public website should communicate the café's atmosphere, showcase its menu 
 **Design references:** All design references, screenshots, moodboards, and visual inspiration will be placed in the repository's `references/` directory. Inspect that directory before making design decisions. Treat these references as the primary visual guidance. Do not ignore them or replace them with a generic design.
 
 If references are missing or ambiguous, use the design direction below and document assumptions.
+
+### Image Sourcing
+- Use relevant images from **open/publicly accessible sources** for café interiors, coffee, drinks, pastries, and other website visuals when suitable assets are not supplied in `references/`.
+- Prefer reputable sources that clearly permit reuse, such as Unsplash, Pexels, or Pixabay, and follow each source's current license and attribution requirements. Do not assume that any image found through a search is automatically free to use.
+- Prefer stable image URLs or download permitted assets into the project when appropriate; avoid fragile hotlinks when a reliable local asset is practical.
+- Do not use copyrighted images without permission, watermarked previews, or images that misrepresent the fictional café as a real business.
+- Keep image choices consistent with the visual references and the Morrow Coffee brand.
+- If external images are used, document their source and any attribution/license requirements in a small asset credits file or the project README.
 
 ## 2. Design Direction
 
