@@ -5,8 +5,8 @@ export const cafe = {
   name: 'Morrow Coffee',
   tagline: 'Спеціальна кав’ярня з теплим світлом і свіжою випічкою',
   address: 'вул. Ранкова, 14, м. Київ',
-  phone: '+380 (00) 000-00-00',
-  phoneHref: 'tel:+380000000000',
+  phone: '+380 44 512 30 76',
+  phoneHref: 'tel:+380445123076',
   // General Instagram link. Replace with the profile URL once the owner provides it.
   instagramUrl: 'https://www.instagram.com/',
   openingHours: [
