@@ -16,15 +16,23 @@ const statusMeta: Record<TableStatus, { label: string }> = {
   unavailable: { label: 'Недоступний' },
 };
 
+// Must match the server limit in get_public_availability (120 days).
+const MAX_DAYS_AHEAD = 120;
+
 const statusOrder: TableStatus[] = ['available', 'occupied', 'unavailable'];
 
 export function Availability() {
   // Default to today. Changing the date clears the chosen time and table.
-  const [date, setDate] = useState(() => toIsoDate(new Date()));
+  // Date limits are computed once per mount, so render stays pure.
+  const [dateLimits] = useState(() => ({
+    min: toIsoDate(new Date()),
+    max: toIsoDate(new Date(Date.now() + MAX_DAYS_AHEAD * 86_400_000)),
+  }));
+  const [date, setDate] = useState(dateLimits.min);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [selectedTableId, setSelectedTableId] = useState<string | null>(null);
 
-  const { status, data, retry } = useDayAvailability(date);
+  const { status, data, errorMessage, retry } = useDayAvailability(date);
 
   const slot = data?.slots.find((item) => item.time === selectedTime) ?? null;
   const tables = data?.tables ?? [];
@@ -66,7 +74,8 @@ export function Availability() {
               id="availability-date"
               type="date"
               className={styles.control}
-              min={toIsoDate(new Date())}
+              min={dateLimits.min}
+              max={dateLimits.max}
               value={date}
               onChange={(event) => handleDateChange(event.target.value)}
             />
@@ -81,13 +90,18 @@ export function Availability() {
             ) : null}
             {status === 'error' ? (
               <div className={styles.errorBox} role="alert">
-                <p>Не вдалося завантажити доступність.</p>
+                <p>{errorMessage ?? "Не вдалося завантажити доступність."}</p>
                 <Button variant="secondary" onClick={retry}>
                   Спробувати ще раз
                 </Button>
               </div>
             ) : null}
-            {status === 'ready' && data ? (
+            {status === 'ready' && data && !data.isOpen ? (
+              <p className={styles.muted} role="status">
+                Кав’ярня цього дня зачинена. Оберіть іншу дату.
+              </p>
+            ) : null}
+            {status === 'ready' && data && data.isOpen ? (
               <ul className={styles.slots}>
                 {data.slots.map((item) => {
                   const freeCount = tables.filter((table) => item.statuses[table.id] === 'available').length;
@@ -124,7 +138,7 @@ export function Availability() {
             ))}
           </ul>
 
-          {status === 'ready' && !slot ? (
+          {status === 'ready' && data?.isOpen && !slot ? (
             <p className={styles.muted}>Оберіть часовий інтервал, щоб побачити статуси столиків.</p>
           ) : null}
 

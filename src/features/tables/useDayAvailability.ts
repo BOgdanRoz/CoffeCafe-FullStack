@@ -1,18 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { getDayAvailability } from './availabilityService';
 import type { DayAvailability } from './types';
 
+// Refresh while the page stays open, and when the visitor comes back to it.
+const REFRESH_INTERVAL_MS = 60_000;
+
 type RequestState = {
-  key: string;
+  date: string;
   data?: DayAvailability;
-  failed?: boolean;
+  failed: boolean;
+  errorMessage?: string;
 };
 
-// Loads availability for a date. Results from an outdated request are ignored.
 export function useDayAvailability(date: string) {
-  const [attempt, setAttempt] = useState(0);
-  const requestKey = `${date}#${attempt}`;
-  const [request, setRequest] = useState<RequestState>({ key: '' });
+  const [refreshToken, setRefreshToken] = useState(0);
+  const [request, setRequest] = useState<RequestState | null>(null);
 
   useEffect(() => {
     let ignore = false;
@@ -20,32 +22,59 @@ export function useDayAvailability(date: string) {
     getDayAvailability(date)
       .then((data) => {
         if (!ignore) {
-          setRequest({ key: requestKey, data });
+          setRequest({ date, data, failed: false });
         }
       })
-      .catch(() => {
-        if (!ignore) {
-          setRequest({ key: requestKey, failed: true });
+      .catch((error: unknown) => {
+        if (ignore) {
+          return;
         }
+        const message = error instanceof Error ? error.message : 'Не вдалося завантажити доступність.';
+        // Keep previously loaded data for the same date, so a failed refresh does not wipe the view.
+        setRequest((previous) => ({
+          date,
+          data: previous?.date === date ? previous.data : undefined,
+          failed: true,
+          errorMessage: message,
+        }));
       });
 
     return () => {
       ignore = true;
     };
-  }, [date, requestKey]);
+  }, [date, refreshToken]);
 
-  const isCurrent = request.key === requestKey;
+  const refresh = useCallback(() => setRefreshToken((value) => value + 1), []);
+
+  useEffect(() => {
+    const timer = window.setInterval(refresh, REFRESH_INTERVAL_MS);
+    const handleVisibility = () => {
+      if (document.visibilityState === 'visible') {
+        refresh();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+    window.addEventListener('focus', refresh);
+    return () => {
+      window.clearInterval(timer);
+      document.removeEventListener('visibilitychange', handleVisibility);
+      window.removeEventListener('focus', refresh);
+    };
+  }, [refresh]);
+
+  const current = request?.date === date ? request : null;
 
   let status: 'loading' | 'ready' | 'error' = 'loading';
-  if (isCurrent && request.failed) {
-    status = 'error';
-  } else if (isCurrent && request.data) {
+  if (current?.data) {
     status = 'ready';
+  } else if (current?.failed) {
+    status = 'error';
   }
 
   return {
     status,
-    data: isCurrent ? request.data : undefined,
-    retry: () => setAttempt((value) => value + 1),
+    data: current?.data,
+    errorMessage: current?.failed ? current.errorMessage : undefined,
+    retry: refresh,
   };
 }

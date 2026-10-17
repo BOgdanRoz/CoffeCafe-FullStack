@@ -13,8 +13,4 @@ export const cafe = {
     { days: 'Понеділок – п’ятниця', hours: '08:00 – 21:00' },
     { days: 'Субота – неділя', hours: '09:00 – 22:00' },
   ],
-  // Time grid for the table availability view (demo data).
-  reservationFirstSlot: '08:00',
-  reservationLastSlot: '20:00',
-  reservationSlotMinutes: 30,
 } as const;
